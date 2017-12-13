@@ -1,0 +1,39 @@
+version: '2'
+services:
+ tomcat:
+  image: dockeriiq_tomcat
+  container_name: tomcat_server
+  expose:
+  - "8080"
+  ports:
+  - "8080:8080"
+  - "9009:8009"
+  environment:
+  - MYSQL_USER=identityiq
+  - MYSQL_PASSWORD=identityiq
+  - MYSQL_DATABASE=identityiq
+  - MYSQL_ROOT_PASSWORD=root
+  depends_on:
+   - mysql
+  links:
+   - mysql
+ mysql:
+  image: mysql
+  container_name: mysql_server
+  expose:
+  - "3306"
+  ports:
+  - "3306:3306"
+  environment:
+  - MYSQL_USER=identityiq
+  - MYSQL_PASSWORD=identityiq
+  - MYSQL_DATABASE=identityiq
+  - MYSQL_ROOT_PASSWORD=root
+  volumes:
+  - mysql_data:/var/lib/mysql/data
+
+volumes:
+  mysql_data:
+
+
+ 
